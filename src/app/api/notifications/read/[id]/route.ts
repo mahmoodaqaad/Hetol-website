@@ -1,0 +1,20 @@
+import prisma from "@/utils/db";
+import { NextRequest, NextResponse } from "next/server";
+interface Props {
+    params: { id: string }
+
+}
+export const PUT = async (req: NextRequest, { params: { id } }: Props) => {
+    try {
+
+        await prisma.notification.update({
+            where: { id: Number(id) },
+            data: { isRead: true },
+        });
+
+        return NextResponse.json({ message: "Is Read" });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+        return NextResponse.json({ message: "Internal error", error }, { status: 500 });
+    }
+};

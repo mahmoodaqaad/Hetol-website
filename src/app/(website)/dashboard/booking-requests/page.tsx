@@ -1,0 +1,33 @@
+import { getBookingRequestCount, GetRoomsRequest } from '@/apiCall/BookingRequest'
+import { BookingRequest } from '@prisma/client'
+import Link from 'next/link'
+import React from 'react'
+import Table from './Table'
+import { SearchProps } from '@/utils/Types'
+type BookingRequestWithRelations = BookingRequest & {
+    user: { name: string };
+    room: { name: string };
+};
+const BookingRequestPage = async ({ searchParams: { pageNumber } }: SearchProps) => {
+    const BookingRequest: BookingRequestWithRelations[] = await GetRoomsRequest(pageNumber)
+
+    const count: number = await getBookingRequestCount()
+
+
+    return (
+        <section >
+            <div className='flex items-center justify-between px-2 '>
+                <h1 className='text-4xl font-semibold'>Booking Request</h1>
+                <Link href={"/dashboard/booking-requests/addrequest"} className='bg-indigo-700  text-white px-3 py-2 text-xl rounded hover:bg-indigo-500 transition-all  '>add Request</Link>
+            </div>
+            <Table
+                requests={BookingRequest}
+                pageNumber={(Number(pageNumber))}
+                count={count} action={true}
+            />
+
+        </section>
+    )
+}
+
+export default BookingRequestPage

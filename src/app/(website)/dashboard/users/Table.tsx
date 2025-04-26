@@ -1,0 +1,38 @@
+"use client"
+import TableShow from '@/components/Dashboard/Table/TableShow'
+import { tableProps } from '@/utils/Types'
+import { User } from '@prisma/client'
+
+const Table = ({ users, SignUser, action = true, count, pageNumber }: { users: User[], SignUser: User, } & tableProps) => {
+
+
+    const head = [
+        { key: "id", value: "ID" },
+        { key: "name", value: "name" },
+        { key: "email", value: "Email" },
+        { key: "role", value: "Role" },
+        { key: "createdAt", value: "Created At" },
+        // { key: "Action", value: "Action" },
+
+    ]
+    return (
+
+        <div className='overflow-auto'>
+            <TableShow action={action}
+                count={count}
+                page={pageNumber}
+                path="users"
+                one='booked'
+                tow='available'
+                three={''}
+                four={''}
+                data={users} header={head} singleUser={SignUser}
+            />
+
+
+        </div>
+
+    )
+}
+
+export default Table

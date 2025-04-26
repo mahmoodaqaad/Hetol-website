@@ -2,20 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+.vh-100 {
+
+    min-height: 100vh;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.vh-dash {
+    min-height: calc(100vh - 113px);
+
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@media (width<768px) {
+
+    .muins-trnsalte {
+        transform: translateX(-160%);
+        -webkit-transform: translateX(-160%);
+        -moz-transform: translateX(-160%);
+        -ms-transform: translateX(-160%);
+        -o-transform: translateX(-160%);
+    }
+}
+
+.vh-site {
+    min-height: calc(100vh - 104px);
 }

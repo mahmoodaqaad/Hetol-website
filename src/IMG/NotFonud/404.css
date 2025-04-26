@@ -1,0 +1,16 @@
+.notFound {
+
+    padding: 30px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    height:85lvb;
+    font-size: 40px;
+    letter-spacing: 2px;
+    font-family: serif;
+}

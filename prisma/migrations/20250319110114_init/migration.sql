@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Room" ADD COLUMN     "size" TEXT NOT NULL DEFAULT '20*30',
+ADD COLUMN     "view" TEXT NOT NULL DEFAULT 'Sea';

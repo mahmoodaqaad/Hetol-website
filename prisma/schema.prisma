@@ -1,0 +1,213 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SuperAdmin
+  Admin
+  Manager
+  User
+}
+
+enum RoomStatus {
+  available
+  requested
+  booked
+}
+
+enum BookingStatus {
+  pending
+  approved
+  rejected
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  failed
+}
+
+enum BookingState {
+  active
+  completed
+  canceled
+}
+
+enum TodoStatus {
+  pending
+  completed
+}
+
+enum RoomType {
+  Single
+  Double
+  Deluxe
+  Other
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  email     String   @unique
+  password  String
+  role      Role     @default(User)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  bookings        Booking[]
+  bookingRequests BookingRequest[]
+  payments        Payment[]
+  comments        Comment[]
+  Todo            Todo[]
+  Rating          Rating[]
+  Saved           Saved[]
+  Notification    Notification[]
+}
+
+model Room {
+  id         Int     @id @default(autoincrement())
+  name       String  @db.VarChar(100)
+  discrption String
+  price      Decimal
+
+  view  String @default("Sea")
+  size  String @default("20*30")
+  guest String @default("2")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  images          RoomImage[] // العلاقة مع الصور
+  status          RoomStatus       @default(available)
+  roomType        RoomType         @default(Single)
+  bookingRequests BookingRequest[]
+  bookings        Booking[]
+  comments        Comment[]
+  Rating          Rating[]
+  Saved           Saved[]
+}
+
+model RoomImage {
+  id        Int      @id @default(autoincrement())
+  roomId    Int
+  imageUrl  String   @db.Text // تخزين رابط الصورة
+  createdAt DateTime @default(now())
+
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+}
+
+model BookingRequest {
+  id        Int           @id @default(autoincrement())
+  userId    Int
+  roomId    Int
+  checkIn   DateTime
+  checkOut  DateTime
+  status    BookingStatus @default(pending)
+  createdAt DateTime      @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+}
+
+model Booking {
+  id              Int           @id @default(autoincrement())
+  userId          Int
+  roomId          Int
+  checkIn         DateTime
+  checkOut        DateTime
+  status          BookingState  @default(active)
+  paymentStatus   PaymentStatus @default(pending)
+  totalAmount     Decimal // السعر الكامل للغرفة
+  paidAmount      Decimal       @default(0) // المبلغ المدفوع
+  remainingAmount Decimal       @default(0) // المبلغ المتبقي
+  createdAt       DateTime      @default(now())
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room    Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  payment Payment?
+}
+
+model Payment {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  bookingId Int     @unique
+  amount    Decimal
+
+  method    String        @db.VarChar(50)
+  status    PaymentStatus @default(pending)
+  createdAt DateTime      @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+}
+
+model Rating {
+  id          Int      @id @default(autoincrement())
+  ratingValue Int // التقييم من 1 إلى 5
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  roomId      Int
+  userId      Int
+  room        Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([roomId, userId]) // 🔥 هذا أهم شيء حتى تمنع التكرار
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  roomId    Int
+  userId    Int
+
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Setting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model Todo {
+  id         Int        @id @default(autoincrement())
+  title      String
+  discrption String
+  status     TodoStatus @default(pending)
+  userId     Int
+  createdAt  DateTime   @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Saved {
+  id Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  roomId    Int
+  userId    Int
+
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  message   String
+  type      String 
+  userId    Int 
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

@@ -1,0 +1,4 @@
+.topchannel td:not(th td) {
+
+    border: 1px solid #444;
+}
