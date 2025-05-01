@@ -6,21 +6,21 @@ import { RoomWithReltion } from '@/utils/Types'
 import React from 'react'
 interface FilterProps {
     searchParams: {
-        geust: string
+        guest: string
         checkIn: string
         checkOut: string
         type: string
     }
 
 }
-const RoomsFilter = async ({ searchParams: { geust, checkIn, checkOut, type } }: FilterProps) => {
+const RoomsFilter = async ({ searchParams: { guest, checkIn, checkOut, type } }: FilterProps) => {
 
     const response = await fetch(`${DOMAIN}/api/rooms/filter`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ geust, checkIn, checkOut, type })
+        body: JSON.stringify({ guest, checkIn, checkOut, type })
     })
     if (response.status === 404) return (
         <div className='flex items-center justify-center h-screen'>
@@ -49,8 +49,10 @@ const RoomsFilter = async ({ searchParams: { geust, checkIn, checkOut, type } }:
             <div className='flex  w-full  items-center flex-wrap'>
 
                 {data.map((item, i) => (
+                    <div key={i} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2'>
 
-                    <SingleRoom room={item} key={i} booking={false} />
+                        <SingleRoom room={item} key={i} booking={false} />
+                    </div>
 
                 ))}
             </div>

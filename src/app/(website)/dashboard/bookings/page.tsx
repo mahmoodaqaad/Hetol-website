@@ -4,10 +4,10 @@ import Table from './Table'
 import { GetBooking, getBookingCount } from '@/apiCall/Booking'
 import { BookingWithRelations, SearchProps } from '@/utils/Types'
 
+ 
+const BookingPage = async ({ searchParams: { pageNumber, search = "" } }: SearchProps) => {
 
-const BookingPage = async ({ searchParams: { pageNumber } }: SearchProps) => {
-
-  const Booking: BookingWithRelations[] = await GetBooking(pageNumber)
+  const Booking: BookingWithRelations[] = await GetBooking(pageNumber, search)
   const count: number = await getBookingCount()
 
   return (
@@ -16,7 +16,7 @@ const BookingPage = async ({ searchParams: { pageNumber } }: SearchProps) => {
         <h1 className='text-4xl font-semibold'>Booking</h1>
         <Link href={"/dashboard/bookings/addBook"} className='bg-indigo-700  text-white px-3 py-2 text-xl rounded hover:bg-indigo-500 transition-all  '>add Book</Link>
       </div>
-      <Table pageNumber={Number(pageNumber)}
+      <Table showOtherTable={true} pageNumber={Number(pageNumber)}
         count={count}
 
         Booking={Booking} action={true} />

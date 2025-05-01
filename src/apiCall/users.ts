@@ -2,9 +2,9 @@ import { DOMAIN } from "@/utils/consant";
 import { getFetchAll, getFetchById } from "@/utils/FetchData";
 import { notFound, redirect } from "next/navigation";
 
-export const getUser = async (pageNumber: string) => {
+export const getUser = async (pageNumber: string, search: string) => {
 
-    const response = await getFetchAll("users", pageNumber)
+    const response = await getFetchAll("users", pageNumber, search)
     if (response.status === 403) redirect("/dashboard/403")
 
     if (!response?.ok) {

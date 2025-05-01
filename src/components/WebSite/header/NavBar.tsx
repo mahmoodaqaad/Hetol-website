@@ -10,8 +10,9 @@ const NavBar = ({ user }: { user: User }) => {
 
     if (!context) throw new Error("error in context nav bar")
     const { showbar, setShowBar } = context
+
     return (
-        <div className={`${stay.navLinks} flex items-center pr-12 ${showbar ? stay.showLink : ""}`}>
+        <div className={`${stay.navLinks} flex items-center pr-12  ${showbar ? stay.showLink : ""}`}>
             <Link onClick={() => { setShowBar(false); }} className='px-2 text-lg text-red-100' href={"/"}>Home</Link>
             <Link onClick={() => { setShowBar(false); }} className='px-2 text-lg text-red-100' href={"/rooms"}>Our Rooms</Link>
             <Link onClick={() => { setShowBar(false); }} className='px-2 text-lg text-red-100' href={"/restaurant"}>Restaurant</Link>
@@ -21,20 +22,21 @@ const NavBar = ({ user }: { user: User }) => {
             {
                 user &&
 
-                <>
+                < div className='md:hidden py-4'>
+
                     {
 
-                        user.role == "SuperAdmin" || user.role == "Admin" || user.role == "Manager"
+                        (user &&(user.role === "SuperAdmin" || user.role === "Admin" || user.role === "Manager"))
                         &&
-                        <Link className='bg-sky-500 hidden md:block text-white px-3 py-2' href={"/dashboard"}>dashboard</Link>
+                        <Link className='bg-sky-500   text-white px-3 py-2' href={"/dashboard"}>dashboard</Link>
                     }
 
 
 
-                    < div className='md:hidden'>
+                    <div className='mt-5'>
                         <Logout />
                     </div >
-                </>
+                </div>
             }
         </div>
     )

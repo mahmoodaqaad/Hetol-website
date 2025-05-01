@@ -1,3 +1,5 @@
+"use client"
+
 import { Status } from '@/utils/Status'
 import { User } from '@prisma/client'
 import Image from 'next/image'
@@ -13,6 +15,7 @@ import { ModeContext } from '@/Context/ModeContext'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
+import SearchTable from './SearchTable'
 interface Props {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any[]
@@ -25,12 +28,12 @@ interface Props {
     three: string,
     four: string
     count: number
-
+    showOtherTable: boolean
     page: number
 }
 
 const TableShow = (props: Props) => {
-    const { data, singleUser, action, header, one, tow, three = "", four = "", path, page, count } = props
+    const { data, singleUser, action, header, one, tow, three = "", four = "", path, page, count, showOtherTable = false } = props
     const context = useContext(ModeContext)
     if (!context) {
         throw new Error("Error in mode context")
@@ -102,7 +105,7 @@ const TableShow = (props: Props) => {
 
 
 
-     const handleDelete = async (id: number) => {
+    const handleDelete = async (id: number) => {
 
         Swal.fire({
             title: "Are you sure?",
@@ -201,7 +204,7 @@ const TableShow = (props: Props) => {
         const IsMy = data?.id === singleUser?.id
         return (
             <tr key={i} >
-                <td className='border-gray-200 border-2 p-2'>{(page - 1) * ARTICLE_PER_PAGE + 1 + i}</td>
+                <td className='border-gray-200 border-2 p-2'>{page ? ((page - 1) * ARTICLE_PER_PAGE + 1 + i) : i + 1}</td>
 
                 {
 
@@ -261,6 +264,11 @@ const TableShow = (props: Props) => {
     return (
         <div>
 
+            {showOtherTable &&
+                <div className='my-3 w-full md:w-1/2 lg:w-2/5 '>
+                    <SearchTable path={path} />
+                </div>
+            }
             <table className='table w-full text-left mt-4'>
 
                 <thead className='border-2 border-gray-300'>
@@ -292,7 +300,13 @@ const TableShow = (props: Props) => {
 
             {/* pagination  */}
 
-            <PaginationPage path={path} total={count} page={page} />
+            {(showOtherTable &&
+                page) &&
+                <div className='mt-5'>
+
+                    <PaginationPage path={path} total={count} page={page} />
+                </div>
+            }
         </div>
     )
 }

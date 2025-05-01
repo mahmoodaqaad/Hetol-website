@@ -1,4 +1,5 @@
-import { Booking, BookingRequest, Comment, Room, RoomImage, User, Rating } from "@prisma/client";
+import { Booking, BookingRequest, Comment, Room, RoomImage, User, Rating, Saved } from "@prisma/client";
+import { Comments } from "xlsx";
 
 export type JWTPaylod = {
     id: number;
@@ -22,7 +23,8 @@ export type RoomWithReltionAll = Room & {
     comments: Comment[]
     Rating: Rating[],
     averageRating: number,
-    totalRatings: number
+    totalRatings: number,
+
 }
 export type CommentWithUser = Comment & {
     user: User
@@ -47,7 +49,7 @@ export type DataType = {
 }
 
 export interface SearchProps {
-    searchParams: { pageNumber: string }
+    searchParams: { pageNumber: string, search: string }
 }
 
 export type BookingWithRelations = Booking & {
@@ -63,7 +65,8 @@ export type BookingWithRelations = Booking & {
 export type tableProps = {
     action: boolean,
     count: number,
-    pageNumber: number
+    pageNumber: number,
+    showOtherTable: boolean
 }
 
 export interface RoomWithReltionAllAndPorps {
@@ -73,5 +76,30 @@ export interface RoomWithReltionAllAndPorps {
         bookingRequests: BookingRequest[]
     }
     userId: number
+
+}
+export interface UserWithAll {
+    Saved: Saved[]
+    comments: Comments[]
+    bookingRequests: BookingRequest[]
+    Booking: Booking[]
+}
+
+
+export interface UserWithAllRoom {
+
+    Saved: Saved & {
+        room: RoomWithReltionAll
+    }[]
+    comments: Comments & {
+        text: string
+        room: RoomWithReltionAll
+    }
+    bookingRequests: BookingRequest & {
+        room: RoomWithReltionAll
+    }[]
+    Booking: Booking & {
+        room: RoomWithReltionAll
+    }[]
 
 }

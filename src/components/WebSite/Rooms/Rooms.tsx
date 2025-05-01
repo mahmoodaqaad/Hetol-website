@@ -3,14 +3,14 @@
 import React, { useEffect, useState } from 'react'
 import SingleRoom from '../SingleRoom/SingleRoom'
 import SearchRoom from '../SearchRoom/SearchRoom'
-import { RoomWithReltion } from '@/utils/Types'
+import { RoomWithReltionAll } from '@/utils/Types'
 import { LoadingBtn } from '@/app/loading'
 import axios from 'axios'
 import { DOMAIN } from '@/utils/consant'
 
 const Rooms = ({ count }: { count: number }) => {
 
-    const [rooms, setRooms] = useState<RoomWithReltion[]>([])
+    const [rooms, setRooms] = useState<RoomWithReltionAll[]>([])
     const [offset, setOffset] = useState(1)
 
     const [laoding, setLoading] = useState(false)
@@ -48,29 +48,33 @@ const Rooms = ({ count }: { count: number }) => {
 
 
     return (
-        <div className='text-center py-12'>
+        <div className='text-center'>
             <SearchRoom />
-            <div className='flex mt-10 justify-between md:justify-start items-center flex-wrap text-start '>
-                {
-                    rooms?.map((item, i) => (
-                        <div key={i} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2'>
-                            <SingleRoom room={item} booking={true} />
-                        </div>
-                    ))
-                }
-            </div>
-            {
-                rooms.length !== count &&
-                <button
-                    onClick={() => setOffset(offset + 1)}
-                    className='mx-auto rounded mt-4 bg-emerald-700  px-6 py-3 text-2xl text-white '
-                    disabled={laoding}
-                >
+            <div className='py-3'>
 
-                    {laoding ? <LoadingBtn /> : "Show More"}
-                </button>
-            }
-        </div >
+                <div className='flex mt-10 justify-between md:justify-start items-center flex-wrap text-start '>
+                    {
+                        rooms?.map((item, i) => (
+                            <div key={i} className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2'>
+                                <SingleRoom room={item} booking={true} />
+                            </div>
+                        ))
+                    }
+                </div>
+                {
+                    rooms.length !== count &&
+                    <button
+                        onClick={() => setOffset(offset + 1)}
+                        className='mx-auto rounded mt-4 bg-emerald-700  px-6 py-3 text-2xl text-white '
+                        disabled={laoding}
+                    >
+
+                        {laoding ? <LoadingBtn /> : "Show More"}
+                    </button>
+                }
+            </div >
+        </div>
+
     )
 }
 

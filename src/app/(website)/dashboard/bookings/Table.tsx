@@ -3,7 +3,7 @@ import TableShow from '@/components/Dashboard/Table/TableShow'
 import { BookingWithRelations, tableProps } from '@/utils/Types'
 
 
-const Table = ({ Booking, action = true, pageNumber = 1, count }: {
+const Table = ({ Booking, action = true, pageNumber = 1, count, showOtherTable }: {
     Booking: BookingWithRelations[],
 } & tableProps) => {
 
@@ -34,7 +34,9 @@ const Table = ({ Booking, action = true, pageNumber = 1, count }: {
     return (
         <div className='overflow-auto'>
             <div className='overflow-auto'>
-                <TableShow action={action}
+                <TableShow
+                    showOtherTable={showOtherTable}
+                    action={action}
                     page={Number(pageNumber)}
                     count={count}
                     path='bookings'

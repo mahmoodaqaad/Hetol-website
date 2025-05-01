@@ -6,7 +6,6 @@ import { BiUser } from 'react-icons/bi'
 import { IoMdNotifications } from 'react-icons/io'
 import Bar from './Bar'
 import ThemeMode from './ThemeMode'
-import Notifiction from '@/components/Notifiction/Notifiction'
 
 const TopBar = async () => {
     const user = await varfiyMyAccount()
@@ -32,7 +31,7 @@ const TopBar = async () => {
 
                     <div className='text-3xl text-orange-600 cursor-pointer hover:scale-125 transition-all'>
                         <IoMdNotifications />
-                        <Notifiction user={user} />
+                        {/* <Notifiction user={user} /> */}
                     </div>
                     <Link href={"/dashboard/profile"} className='text-3xl text-green-900 cursor-pointer hover:scale-125 transition-all'>
                         <BiUser />

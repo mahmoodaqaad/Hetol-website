@@ -13,39 +13,36 @@ const page = async () => {
         <section className=''>
             <div>
 
-                <div>
-                    <div className='flex items-center gap-3 mb-3 border p-4 rounded-lg'>
-                        <p className='text-2xl '>Hello:</p>
-                        <p className='text-3xl font-semibold'>
-                            {user.name}
-                        </p>
-                    </div>
-                    <div className='flex items-center gap-3 mb-3 border p-4 rounded-lg'>
-                        <p className='text-2xl '>
-                            Your Email is :
-                        </p>
+                <table className='text-xl p-3 w-full'>
+                    <tr className='block w-full mb-3 border px-1 py-3 rounded-lg'>
+                        <td className='w-32 font-semibold text-xl'>
+                            Name :
 
-                        <p className='text-3xl font-semibold'>
-                            {user.email}
-                        </p>
-                    </div>
-                    <div className='flex items-center gap-3 mb-3 border p-4 rounded-lg'>
-                        <p className='text-2xl '>
-                            Your Role is :
-                        </p>
-                        <p className='text-3xl font-semibold'>
+                        </td>
+                        <td className='text-2xl'>
+                            {user.name}
+                        </td>
+                    </tr>
+                    <tr className='block w-full mb-3 border px-1 py-3 rounded-lg'>
+                        <td className='w-32 font-semibold text-xl'>
+                            Role :
+
+                        </td>
+                        <td className='text-2xl'>
                             {user.role}
-                        </p>
-                    </div>
-                    <div className='flex items-center gap-3 mb-3 border p-4 rounded-lg'>
-                        <p className='text-2xl '>
-                            Your Create Your Account in
-                        </p>
-                        <p className='text-3xl font-semibold'>
+                        </td>
+                    </tr>
+                    <tr className='block w-full mb-3 border px-1 py-3 rounded-lg'>
+                        <td className='w-32 font-semibold text-xl'>
+                            Create At :
+
+                        </td>
+                        <td className='text-2xl'>
                             {new Date(user.createdAt).toDateString()}
-                        </p>
-                    </div>
-                </div>
+                        </td>
+                    </tr>
+
+                </table>
 
             </div>
 
@@ -56,7 +53,7 @@ const page = async () => {
                 </div>
                 <div className='p-5 w-full lg:w-1/2'>
 
-                    <EditPassword user={user} />
+                    <EditPassword />
                 </div>
 
 

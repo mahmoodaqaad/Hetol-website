@@ -69,7 +69,7 @@ export interface updatePasswordDto {
 
 
 export interface FilterData {
-    geust?: string
+    guest?: string
 
     checkIn?: string
     checkOut?: string

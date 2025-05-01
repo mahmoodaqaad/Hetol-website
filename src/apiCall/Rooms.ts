@@ -2,9 +2,9 @@ import { DOMAIN } from "@/utils/consant";
 import { getFetchAll, getFetchById } from "@/utils/FetchData";
 import { notFound, redirect } from "next/navigation";
 
-export const getRooms = async (pageNumber: string) => {
+export const getRooms = async (pageNumber: string, search: string) => {
 
-    const response = await getFetchAll("rooms", Number(pageNumber))
+    const response = await getFetchAll("rooms", pageNumber, search)
     if (response.status === 403) redirect("/dashboard/403")
     if (!response?.ok) {
         throw new Error("Failed to fetch rooms")
@@ -36,3 +36,12 @@ export const getSingleRoom = async (id: string) => {
     return response.json();
 }
 
+
+export const getRoomsBySearch = async (search: string) => {
+
+    const response = await fetch(`${DOMAIN}/api/rooms/search?search=${search}`)
+    if (!response.ok)
+        throw new Error("Failed to Fetch rooms search")
+    return response.json()
+
+}

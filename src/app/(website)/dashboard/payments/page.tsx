@@ -12,8 +12,8 @@ type PaymentProps = Payment & {
     }
   }
 }
-const BookingRequestPage = async ({ searchParams: { pageNumber } }: SearchProps) => {
-  const payments: PaymentProps[] = await GetPayments(pageNumber)
+const BookingRequestPage = async ({ searchParams: { pageNumber ,search=""} }: SearchProps) => {
+  const payments: PaymentProps[] = await GetPayments(pageNumber, search)
   const count: number = await GetPaymentCount()
 
   return (
@@ -22,7 +22,7 @@ const BookingRequestPage = async ({ searchParams: { pageNumber } }: SearchProps)
         <h1 className='text-4xl font-semibold'>Payments</h1>
         {/* <Link href={"/dashboard/payments/addpayment"} className='bg-indigo-700  text-white px-3 py-2 text-xl rounded hover:bg-indigo-500 transition-all  '>add Payment</Link> */}
       </div>
-      <Table action={true} payments={payments} count={count} pageNumber={Number(pageNumber)} />
+      <Table showOtherTable={true} action={true} payments={payments} count={count} pageNumber={Number(pageNumber)} />
 
     </section>
   )

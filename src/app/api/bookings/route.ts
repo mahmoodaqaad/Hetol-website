@@ -16,7 +16,62 @@ export const GET = async (req: NextRequest) => {
     }
 
     const pageNumber = Number(req.nextUrl.searchParams.get("pageNumber")) > 0 ? req.nextUrl.searchParams.get("pageNumber") : 1
+    const search = req.nextUrl.searchParams.get("search") || ""
+    if (search) {
+      const booking = await prisma.booking.findMany({
+        where: {
+          OR: [
+            {
+              user: {
+                name: {
 
+                  contains: search,
+                  mode: "insensitive"
+                }
+              },
+            },
+            {
+              room: {
+                name: {
+
+                  contains: search,
+                  mode: "insensitive"
+                }
+              },
+            },
+
+          ]
+        },
+        select: {
+
+          room: {
+            select: {
+              name: true
+            }
+          },
+          user: {
+            select: {
+              name: true
+            }
+          },
+          checkIn: true,
+          checkOut: true,
+          createdAt: true,
+          paymentStatus: true,
+          roomId: true,
+          userId: true,
+          id: true,
+          payment: true,
+          status: true,
+          totalAmount: true,
+          paidAmount: true,
+
+          remainingAmount: true
+        }
+      })
+      return NextResponse.json(booking, { status: 200 })
+
+    }
 
     const Booking = await prisma.booking.findMany({
       skip: ARTICLE_PER_PAGE * (Number(pageNumber) - 1),
@@ -82,7 +137,7 @@ export const POST = async (req: NextRequest) => {
     if (!room) return NextResponse.json({ message: "No Room has this ID" }, { status: 400 })
     if (room?.status == "booked") return NextResponse.json({ message: "this room is booked" }, { status: 400 })
 
-   
+
     if (!checkIn) return NextResponse.json({ message: "checkIn not Found" }, { status: 404 })
 
     if (!checkOut) return NextResponse.json({ message: "checkOut not Found" }, { status: 404 })

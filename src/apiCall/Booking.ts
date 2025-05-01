@@ -3,8 +3,8 @@ import { getFetchAll, getFetchById } from "@/utils/FetchData";
 import { DOMAIN } from "@/utils/consant";
 
 
-export const GetBooking = async (pageNumber: string) => {
-    const response = await getFetchAll("bookings", pageNumber)
+export const GetBooking = async (pageNumber: string, search: string = "") => {
+    const response = await getFetchAll("bookings", pageNumber, search)
 
     if (response.status === 403) redirect("/dashboard/403")
     if (!response?.ok) {

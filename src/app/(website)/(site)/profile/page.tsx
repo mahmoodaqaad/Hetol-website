@@ -5,10 +5,9 @@ import React from 'react'
 const page = async () => {
 
     const user: User = await varfiyMyAccount()
-    console.log(user);
 
     return (
-        <div className='pt-[104px]'>
+        <div className='pt-[86px] lg:pt-[104px] '>
             <div className='text-2xl '>
                 <div className='text-3xl font-mono mb-2'>
                     Profile

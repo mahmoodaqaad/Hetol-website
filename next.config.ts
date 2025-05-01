@@ -2,14 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      {
-
-        hostname: "res.cloudinary.com"
-
-      }]
-
-  }
+    domains: ["res.cloudinary.com", "via.placeholder.com"], // إضافة الدومينات هنا
+  },
 };
 
 export default nextConfig;

@@ -3,12 +3,12 @@ import React from 'react'
 import { FaExpandAlt } from 'react-icons/fa'
 import { FaUser } from 'react-icons/fa6'
 import { MdOutlineRemoveRedEye } from 'react-icons/md'
-import { Room, RoomImage } from '@prisma/client'
 import Link from 'next/link'
-const SingleRoom = ({ room, booking = true }: { room: Room & { images: RoomImage[] }, booking: boolean }) => {
+import { RoomWithReltionAll } from '@/utils/Types'
+const SingleRoom = ({ room, booking = true }: { room: RoomWithReltionAll, booking: boolean }) => {
 
     return (
-        <div className='bg-gray-200 shadow-xl relative p-3 rounded-lg h-[380px]   overflow-hidden'>
+        <div className='bg-gray-200 shadow-xl relative p-3 rounded-lg    overflow-hidden transition-all hover:-translate-y-3'>
             <Link href={`/rooms/${room.id}`} className='relative '>
 
                 <Image
@@ -24,10 +24,12 @@ const SingleRoom = ({ room, booking = true }: { room: Room & { images: RoomImage
                 }
             </Link>
             <div className='px-3 py-2 text-1xl '>
+
+                <p className='text-xl font-semibold mb-2'>{room.name}</p>
                 <p>
                     ${Number(room.price)}/NIGHT
                 </p>
-                <div className='flex items-center justify-between mt-3'>
+                <div className='flex items-center justify-between mt-3 flex-col md:flex-row'>
 
                     <div className='flex items-center flex-wrap gap-3'>
 
@@ -55,7 +57,7 @@ const SingleRoom = ({ room, booking = true }: { room: Room & { images: RoomImage
                             :<p>{room.view}</p>
                         </div>
                     </div>
-                    <Link href={`/rooms/${room.id}`} className='bg-teal-400 px-4 py-2 uppercase text-white'>
+                    <Link href={`/rooms/${room.id}`} className='bg-teal-400 px-4 py-2 mt-3 md:mt-0 uppercase text-white'>
                         More
                     </Link>
                 </div>

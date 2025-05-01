@@ -19,7 +19,7 @@ const CommentAndReting = async ({ room, user }: { room: RoomWithReltionAll, user
 
 
                         :
-                        <div className='italic text-3xl p-3 text-center mb-3'>Thank You For Rating</div>
+                        <div className='italic text-3xl p-3 text-center mb-3 text-yellow-300'>Thank You For Rating</div>
                 }
 
                 <CreateComment roomId={room.id} userId={Number(user?.id)} />

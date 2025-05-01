@@ -7,7 +7,7 @@ export const POST = async (req: NextRequest) => {
 
     try {
 
-        const { checkIn, checkOut, geust, type } = await req.json() as FilterData
+        const { checkIn, checkOut, guest, type } = await req.json() as FilterData
 
 
         const checkIn1 = new Date(checkIn);
@@ -15,7 +15,7 @@ export const POST = async (req: NextRequest) => {
         const rooms = await prisma.room.findMany({
             where: {
                 roomType: type as RoomType,
-                guest: geust,
+                guest: guest,
                 OR: [
                     {
                         status: {

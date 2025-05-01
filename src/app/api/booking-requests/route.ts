@@ -6,7 +6,7 @@ import { varfiyToken } from "@/utils/verfiyToken";
 import { NextRequest, NextResponse } from "next/server";
 
 
-
+ 
 export const GET = async (req: NextRequest) => {
     const isAllowd = IsSuperAdminOrAdminOrManager(req)
 
@@ -14,7 +14,55 @@ export const GET = async (req: NextRequest) => {
 
         return NextResponse.json({ message: "your not allowd ,for biden" }, { status: 403 })
     } const pageNumber = req.nextUrl.searchParams.get("pageNumber") || 1
+    const search = req.nextUrl.searchParams.get("search") || ""
+    if (search) {
+        const request = await prisma.bookingRequest.findMany({
+            where: {
+                OR: [
+                    {
+                        user: {
+                            name: {
 
+                                contains: search,
+                                mode: "insensitive"
+                            }
+                        },
+                    },
+                    {
+                        room: {
+                            name: {
+
+                                contains: search,
+                                mode: "insensitive"
+                            }
+                        },
+                    },
+
+                ]
+            },
+            select: {
+                checkIn: true,
+                checkOut: true,
+                id: true,
+                createdAt: true,
+                status: true,
+                roomId: true,
+                userId: true,
+                room: {
+                    select: {
+                        name: true
+                    }
+                },
+                user: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        })
+        return NextResponse.json(request, { status: 200 })
+
+    }
     const request = await prisma.bookingRequest.findMany({
         skip: ARTICLE_PER_PAGE * (Number(pageNumber) - 1),
         take: ARTICLE_PER_PAGE,

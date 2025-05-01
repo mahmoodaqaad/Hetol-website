@@ -16,7 +16,40 @@ export const GET = async (req: NextRequest) => {
         //     return NextResponse.json({ message: "your not allowd ,for biden" }, { status: 403 })
         // }
         const pageNumber = Number(req.nextUrl.searchParams.get("pageNumber")) > 0 ? req.nextUrl.searchParams.get("pageNumber") : 1
+        const search = req.nextUrl.searchParams.get("search") || ""
+        if (search) {
+            const users = await prisma.user.findMany({
+                where: {
+                    OR: [
+                        {
+                            name: {
+                                contains: search,
+                                mode: "insensitive"
+                            },
+                        }, {
 
+                            email: {
+                                contains: search,
+                                mode: "insensitive"
+                            }
+                        }
+                    ]
+                },
+                // skip: ARTICLE_PER_PAGE * (Number(pageNumber) - 1),
+                // take: ARTICLE_PER_PAGE,
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                    createdAt: true,
+                    updatedAt: true,
+                    role: true,
+
+                }
+            })
+            return NextResponse.json(users, { status: 200 })
+
+        }
         const users = await prisma.user.findMany({
             skip: ARTICLE_PER_PAGE * (Number(pageNumber) - 1),
             take: ARTICLE_PER_PAGE,

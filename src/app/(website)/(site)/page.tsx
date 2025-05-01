@@ -10,9 +10,14 @@ const HomePage = async () => {
         <div>
             <Header />
             <Hero />
-            <BookRoomTime />
+            <div className="my-[-10px]  lg:w-2/3 w-11/12 mx-auto ">
 
-            <Rooms count={count} />
+                <BookRoomTime />
+            </div>
+            <div className="mt-8">
+
+                <Rooms count={count} />
+            </div>
         </div>
     )
 }

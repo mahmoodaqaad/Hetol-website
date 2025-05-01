@@ -2,7 +2,7 @@
 import { varfiyTokenForPage } from '@/utils/verfiyToken'
 import React from 'react'
 import { Todo } from '@prisma/client'
-import TodoForm from '@/components/Auth/Profile/TodoForm'
+import TodoForm from '@/components/Dashboard/Profile/TodoForm'
 import { getMyTodo } from '@/apiCall/todo'
 const TodoPage = async () => {
   const user = await varfiyTokenForPage()

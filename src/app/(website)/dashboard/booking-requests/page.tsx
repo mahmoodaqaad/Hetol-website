@@ -7,9 +7,9 @@ import { SearchProps } from '@/utils/Types'
 type BookingRequestWithRelations = BookingRequest & {
     user: { name: string };
     room: { name: string };
-};
-const BookingRequestPage = async ({ searchParams: { pageNumber } }: SearchProps) => {
-    const BookingRequest: BookingRequestWithRelations[] = await GetRoomsRequest(pageNumber)
+}; 
+const BookingRequestPage = async ({ searchParams: { pageNumber, search = "" } }: SearchProps) => {
+    const BookingRequest: BookingRequestWithRelations[] = await GetRoomsRequest(pageNumber, search)
 
     const count: number = await getBookingRequestCount()
 
@@ -21,6 +21,8 @@ const BookingRequestPage = async ({ searchParams: { pageNumber } }: SearchProps)
                 <Link href={"/dashboard/booking-requests/addrequest"} className='bg-indigo-700  text-white px-3 py-2 text-xl rounded hover:bg-indigo-500 transition-all  '>add Request</Link>
             </div>
             <Table
+                
+                showOtherTable={true}
                 requests={BookingRequest}
                 pageNumber={(Number(pageNumber))}
                 count={count} action={true}

@@ -2,11 +2,10 @@ import { DOMAIN } from "@/utils/consant";
 import { getFetchAll, getFetchById } from "@/utils/FetchData";
 import { notFound, redirect } from "next/navigation";
 
-export const GetRoomsRequest = async (pageNumber: string) => {
+export const GetRoomsRequest = async (pageNumber: string, search: string = "") => {
 
-    const response = await getFetchAll("booking-requests", pageNumber)
+    const response = await getFetchAll("booking-requests", pageNumber, search)
 
-    console.log(response);
     if (response.status === 403) redirect("/dashboard/403")
     if (!response?.ok) {
         throw new Error("Failed to fetch booking-requests")

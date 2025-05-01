@@ -1,4 +1,4 @@
-import { IsSuperAdminOrAdmin, IsSuperAdminOrAdminOrManager } from "@/utils/CheckRole";
+import { IsSuperAdminOrAdmin } from "@/utils/CheckRole";
 import { ARTICLE_PER_PAGE } from "@/utils/consant";
 import prisma from "@/utils/db";
 import { CreateRoomDto } from "@/utils/Dtos";
@@ -14,13 +14,33 @@ export const GET = async (req: NextRequest) => {
         const pageNumber = req.nextUrl.searchParams.get("pageNumber") || 1
 
         const limit = Number(req.nextUrl.searchParams.get("limit")) || ARTICLE_PER_PAGE
+        const search = req.nextUrl.searchParams.get("search") || ""
+        if (search) {
+            const room = await prisma.room.findMany({
+                where: {
+
+                    name: {
+                        contains: search,
+                        mode: "insensitive"
+                    },
+
+
+                },
+                include: {
+                    images: true
+                }
+
+            })
+            return NextResponse.json(room, { status: 200 })
+
+        }
         const rooms = await prisma.room.findMany({
             skip: limit * (Number(pageNumber) - 1),
             take: limit,
             include: {
                 images: true
             }
-           
+
 
         });
 

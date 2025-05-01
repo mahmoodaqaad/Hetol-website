@@ -2,7 +2,6 @@ import { getIO } from "@/lib/socket";
 import { IsSuperAdminOrAdminOrManager } from "@/utils/CheckRole";
 import prisma from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server"
-import { Server } from "socket.io";
 
 interface Props {
     params: { id: string }
@@ -81,7 +80,7 @@ export const PUT = async (req: NextRequest, { params: { id } }: Props) => {
 
 }
 
-export const PATCH = async (req: NextRequest, { params: { id } }: Props) => {
+export const DELETE = async (req: NextRequest, { params: { id } }: Props) => {
     try {
         const isAllowd = IsSuperAdminOrAdminOrManager(req)
 
@@ -116,7 +115,7 @@ export const PATCH = async (req: NextRequest, { params: { id } }: Props) => {
 
     }
 }
-export const DELETE = async (req: NextRequest, { params: { id } }: Props) => {
+export const PATCH = async (req: NextRequest, { params: { id } }: Props) => {
     try {
         const isAllowd = IsSuperAdminOrAdminOrManager(req)
 
@@ -132,7 +131,7 @@ export const DELETE = async (req: NextRequest, { params: { id } }: Props) => {
         }
         await prisma.bookingRequest.update({
             where: { id: Number(id) }, data: {
-                status: "rejected"
+                status: "cancled"
 
             }
         })

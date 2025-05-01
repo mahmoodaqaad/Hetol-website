@@ -6,7 +6,8 @@ import React from 'react'
 const RoomsPage = async () => {
     const count = await getRoomsCount()
     return (
-        <div>
+        <div className='pt-[86px] lg:pt-[104px] '>
+
             <Rooms count={count} />
         </div>
     )

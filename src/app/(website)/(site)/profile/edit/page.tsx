@@ -7,7 +7,7 @@ const page = async () => {
     const user = await varfiyMyAccount() as User
 
     return (
-        <div className='pt-[104px]'>
+        <div className='pt-[86px] lg:pt-[104px] '>
 
             <div className='p-3 bg-gray-100  w-full md:w-3/4 lg:w-1/2 rounded-lg'>
 

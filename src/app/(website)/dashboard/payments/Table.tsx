@@ -12,7 +12,7 @@ type PaymentProps = Payment & {
         }
     }
 }
-const Table = ({ payments, action = true, count, pageNumber }: { payments: PaymentProps[], } & tableProps) => {
+const Table = ({ payments, action = true, count, pageNumber, showOtherTable }: { payments: PaymentProps[], } & tableProps) => {
 
     const head = [
         { key: "id", value: "ID" },
@@ -27,7 +27,9 @@ const Table = ({ payments, action = true, count, pageNumber }: { payments: Payme
     ]
     return (
         <div className='overflow-auto'>
-            <TableShow action={action}
+            <TableShow
+                showOtherTable={showOtherTable}
+                action={action}
                 one='failed'
                 tow='paid'
                 path='payments'

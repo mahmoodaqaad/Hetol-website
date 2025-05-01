@@ -4,7 +4,7 @@ import { RoomWithReltion, tableProps } from '@/utils/Types'
 import { User } from '@prisma/client'
 
 
-const Table = ({ rooms, user, action = true, pageNumber = 1, count }: { rooms: RoomWithReltion[], user: User, } & tableProps) => {
+const Table = ({ rooms, user, action = true, pageNumber = 1, count, showOtherTable }: { rooms: RoomWithReltion[], user: User, } & tableProps) => {
 
 
     console.log(rooms);
@@ -26,6 +26,7 @@ const Table = ({ rooms, user, action = true, pageNumber = 1, count }: { rooms: R
     return (
         <div className='overflow-auto'>
             <TableShow action={action}
+                showOtherTable={showOtherTable}
                 path={'rooms'}
                 page={pageNumber}
                 count={count}

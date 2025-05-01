@@ -3,7 +3,7 @@ import TableShow from '@/components/Dashboard/Table/TableShow'
 import { tableProps } from '@/utils/Types'
 import { User } from '@prisma/client'
 
-const Table = ({ users, SignUser, action = true, count, pageNumber }: { users: User[], SignUser: User, } & tableProps) => {
+const Table = ({ users, SignUser, action = true, count, pageNumber, showOtherTable }: { users: User[], SignUser: User, } & tableProps) => {
 
 
     const head = [
@@ -19,6 +19,7 @@ const Table = ({ users, SignUser, action = true, count, pageNumber }: { users: U
 
         <div className='overflow-auto'>
             <TableShow action={action}
+                showOtherTable={showOtherTable}
                 count={count}
                 page={pageNumber}
                 path="users"

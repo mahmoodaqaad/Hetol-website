@@ -32,14 +32,25 @@ export default function RootLayout({
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 <ToastContainer theme="colored" />
                 <Header />
-                <div className="flex gap-2">
-                    <SideBar />
+                <div className="">
 
-                    <div className="flex-1 p-3   vh-site">
-                        {children}
+                    <div className="flex gap-2">
+                        <div className="hidden md:block">
+
+                            <SideBar />
+                        </div>
+
+                        <div className="flex-1 p-3   vh-site">
+                            {children}
+                        </div>
+
                     </div>
+                    <div className="block md:hidden">
 
+                        <SideBar />
+                    </div>
                 </div>
+
             </body>
         </html>
     );

@@ -5,7 +5,7 @@ import { NextRequest, NextResponse, NextResponse as res } from "next/server";
 
 export const GET = async (req: NextRequest) => {
 
-
+ 
     try {
 
         const isAllowd = IsSuperAdminOrAdminOrManager(req)
@@ -15,7 +15,61 @@ export const GET = async (req: NextRequest) => {
             return NextResponse.json({ message: "your not allowd ,for biden" }, { status: 403 })
         }
         const pageNumber = req.nextUrl.searchParams.get("pageNumber") || 1
+        const search = req.nextUrl.searchParams.get("search") || ""
 
+        if (search) {
+            const request = await prisma.payment.findMany({
+                where: {
+                    OR: [
+                        {
+                            user: {
+                                name: {
+
+                                    contains: search,
+                                    mode: "insensitive"
+                                }
+                            },
+                        },
+                        {
+                            booking: {
+                                room: {
+                                    
+                                    name: {
+                                        
+                                        contains: search,
+                                        mode: "insensitive"
+                                    }
+                                }
+                            },
+                        },
+
+                    ]
+                },
+                select: {
+                    amount: true,
+                    id: true,
+                    method: true,
+                    status: true,
+                    createdAt: true,
+                    userId: true,
+                    bookingId: true,
+                    user: {
+                        select: { name: true }
+                    },
+                    booking: {
+                        select: {
+                            totalAmount: true,
+                            room: {
+                                select:
+                                    { name: true }
+                            }
+                        }
+                    }
+                }
+            })
+            return NextResponse.json(request, { status: 200 })
+
+        }
         const payment = await prisma.payment.findMany({
             skip: ARTICLE_PER_PAGE * (Number(pageNumber) - 1),
             take: ARTICLE_PER_PAGE,
@@ -49,11 +103,7 @@ export const GET = async (req: NextRequest) => {
     }
 }
 
-// error api 
-/**
- * لكل حجز فاتورة واحدة
- * لايمكن انشاء دفع جديد لام=نو بيتعارض مع جدول الحجز
- */
+
 export const POSsT = async (req: NextRequest) => {
 
     try {
