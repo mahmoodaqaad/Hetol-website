@@ -1,6 +1,11 @@
 import { Booking, BookingRequest, Comment, Room, RoomImage, User, Rating, Saved } from "@prisma/client";
 import { Comments } from "xlsx";
 
+
+export type OnlienUserType = {
+    userId: string,
+    socketId: string
+}
 export type JWTPaylod = {
     id: number;
     email: string;
@@ -49,7 +54,7 @@ export type DataType = {
 }
 
 export interface SearchProps {
-    searchParams: { pageNumber: string, search: string }
+    searchParams: Promise<{ pageNumber: string, search: string, sort?: string, order?: string, filter?: string }>
 }
 
 export type BookingWithRelations = Booking & {

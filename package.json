@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:socket": "set NODE_OPTIONS=--loader ts-node/esm --trace-warnings && ts-node server.mts",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "node --loader ts-node/esm server.mts",
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.4.1",
@@ -26,6 +28,7 @@
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "sweetalert2": "^11.6.13",
+    "ts-node": "^10.9.2",
     "x": "^0.1.2",
     "xlsx": "^0.18.5",
     "zod": "^3.24.2"

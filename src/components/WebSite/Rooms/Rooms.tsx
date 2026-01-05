@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import SingleRoom from '../SingleRoom/SingleRoom'
-import SearchRoom from '../SearchRoom/SearchRoom'
+import SingleRoom from './SingleRoom/SingleRoom'
+import SearchRoom from './SearchRoom/SearchRoom'
 import { RoomWithReltionAll } from '@/utils/Types'
 import { LoadingBtn } from '@/app/loading'
 import axios from 'axios'
@@ -65,7 +65,7 @@ const Rooms = ({ count }: { count: number }) => {
                     rooms.length !== count &&
                     <button
                         onClick={() => setOffset(offset + 1)}
-                        className='mx-auto rounded mt-4 bg-emerald-700  px-6 py-3 text-2xl text-white '
+                        className='mx-auto rounded mt-4 bg-emerald-700  px-6 py-3 text-2xl text-white transition-colors  enabled:hover:bg-emerald-600 '
                         disabled={laoding}
                     >
 

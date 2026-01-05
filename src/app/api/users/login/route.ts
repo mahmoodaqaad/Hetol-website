@@ -17,7 +17,6 @@ import { setCookie } from "@/utils/generateToken";
 
 export const POST = async (req: NextRequest) => {
     try {
-
         const body = (await req.json()) as LoginDto
 
         const valdation = LoginSchema.safeParse(body)
@@ -42,7 +41,7 @@ export const POST = async (req: NextRequest) => {
             role: user.role,
         })
         return NextResponse.json(
-            { message: "Authenticated" },
+            { message: "Authenticated", user: user },
             {
                 status: 200,
                 headers: { "set-Cookie": cookie }
@@ -56,4 +55,9 @@ export const POST = async (req: NextRequest) => {
 
     }
 
+}
+
+export const GET = () => {
+
+    return NextResponse.json("errlrvdds")
 }

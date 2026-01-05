@@ -52,7 +52,6 @@ const EditRoom = ({ room }: { room: Room }) => {
                         const newImgServer = imagesServer.filter((img: { id: string }) => img.id !== id)
 
                         setImagesServer(newImgServer as [])
-                        console.log(newImgServer);
                     }
                 })
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any

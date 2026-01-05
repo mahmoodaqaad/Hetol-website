@@ -46,12 +46,12 @@ const page = async () => {
 
             </div>
 
-            <div className='flex flex-wrap  '>
-                <div className='p-5 w-full lg:w-1/2'>
+            <div className='flex flex-wrap '>
+                <div className=' w-full lg:w-1/2 p-1 md:p-3'>
 
                     <TodoPage />
                 </div>
-                <div className='p-5 w-full lg:w-1/2'>
+                <div className=' w-full lg:w-1/2 p-1 md:p-3'>
 
                     <EditPassword />
                 </div>

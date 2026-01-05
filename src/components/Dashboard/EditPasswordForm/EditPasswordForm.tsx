@@ -20,7 +20,7 @@ const EditPasswordForm = ({ showBotton = true }: { showBotton: boolean }) => {
             }
             {
                 (showMore || !showBotton )&&
-                <div className='shadow bg-gray-100 dark:bg-gray-800 mt-4 p-5'>
+                <div className='shadow bg-gray-100 dark:bg-gray-800 mt-4 p-5 transition-all'>
                     {showBotton &&
                         <div className='flex justify-end '>
 

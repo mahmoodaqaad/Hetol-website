@@ -3,12 +3,12 @@ import { getFetchAll, getFetchById } from "@/utils/FetchData";
 import { DOMAIN } from "@/utils/consant";
 
 
-export const GetBooking = async (pageNumber: string, search: string = "") => {
-    const response = await getFetchAll("bookings", pageNumber, search)
+export const GetBooking = async (pageNumber: string | number, search: string = "", sort: string = "", order: string = "asc", filter: string = "") => {
+    const response = await getFetchAll("bookings", pageNumber, search, sort, order, filter)
 
     if (response.status === 403) redirect("/dashboard/403")
     if (!response?.ok) {
-        throw new Error("Failed to fetch booking")
+        throw new Error("Failed to fetch booking api")
     }
 
     return response.json();
@@ -27,7 +27,6 @@ export const getSingleRoomRequest = async (id: string) => {
 
     const response = await getFetchById("bookings", id)
     if (!response?.ok) {
-        console.log(response);
         if (response.status !== 404) {
 
             throw new Error("Failed to fetch single booking")

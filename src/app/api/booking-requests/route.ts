@@ -140,6 +140,22 @@ export const POST = async (req: NextRequest) => {
             }
         })
 
+        const writerComment = await prisma.user.findUnique({ where: { id: Number(userId) }, select: { name: true } })
+        const room = await prisma.room.findUnique({ where: { id: Number(roomId) }, select: { name: true } })
+        const users = await prisma.user.findMany({ where: { role: "SuperAdmin" }, select: { id: true } })
+        users.map(async (item) => {
+
+
+            await prisma.notification.create({
+                data: {
+                    message: `${writerComment?.name} request book for a room (${room?.name})`,
+                    userId: item.id,
+                    
+                    type: "booking-request"
+                }
+            })
+        })
+        
         return NextResponse.json({ message: "add requst", newRequst }, { status: 201 })
 
     } catch (error) {

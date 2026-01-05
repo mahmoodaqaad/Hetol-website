@@ -12,11 +12,11 @@ interface Props {
 export const PUT = async (req: NextRequest, context: { params: { id: string } }) => {
     try {
         const isAllowd = IsSuperAdminOrAdminOrManager(req)
-        
-            if (!isAllowd) {
-        
-              return NextResponse.json({ message: "your not allowd ,for biden" }, { status: 403 })
-            }
+
+        if (!isAllowd) {
+
+            return NextResponse.json({ message: "your not allowd ,for biden" }, { status: 403 })
+        }
         const { id } = context.params
 
         // find booking
@@ -34,6 +34,18 @@ export const PUT = async (req: NextRequest, context: { params: { id: string } })
         await prisma.room.update({
             where: { id: Number(booking.roomId) },
             data: { status: "available" }
+        })
+
+
+        const room = await prisma.room.findUnique({ where: { id: Number(booking.roomId) }, select: { name: true } })
+
+
+        await prisma.notification.create({
+            data: {
+                message: `your booking is complete for room ${room?.name}`,
+                userId: booking.userId,
+                type: "booking complete"
+            }
         })
 
         return NextResponse.json({ message: "Completed " }, { status: 200 })
@@ -71,6 +83,18 @@ export const DELETE = async (req: NextRequest, { params: { id } }: Props) => {
             where: { id: Number(booking.roomId) },
             data: { status: "available" }
         })
+
+        const room = await prisma.room.findUnique({ where: { id: Number(booking.roomId) }, select: { name: true } })
+
+
+        await prisma.notification.create({
+            data: {
+                message: `your booking is Canceled for room ${room?.name}`,
+                userId: booking.userId,
+                type: "booking complete"
+            }
+        })
+
         return NextResponse.json({ message: "Canceled " }, { status: 200 })
 
     } catch (error) {

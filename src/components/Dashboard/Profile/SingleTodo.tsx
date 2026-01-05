@@ -61,7 +61,9 @@ const SingleTodo = ({ todo, setTodos }: SingleTodoProps) => {
           Swal.fire({
             title: "Deleted!",
             text: "Your file has been deleted.",
-            icon: "success"
+            icon: "success",
+            background: !isDarkmode ? "#444" : "#fff",
+            color: isDarkmode ? "#333" : "#fff",
           });
 
 
@@ -74,7 +76,7 @@ const SingleTodo = ({ todo, setTodos }: SingleTodoProps) => {
           toast.error(error.response?.data?.message)
         }
         finally {
-          // setLoading(false)
+          setLoading(false)
         }
       }
     })
@@ -84,7 +86,7 @@ const SingleTodo = ({ todo, setTodos }: SingleTodoProps) => {
   return (
     <div
       key={todo.id}
-      className='flex items-start gap-2 p-3 border select-none'
+      className='flex items-start gap-2 p-3 border select-none flex-col md:flex-row'
     >
       <div className='flex gap-1  items-center w-full'>
 
@@ -96,15 +98,15 @@ const SingleTodo = ({ todo, setTodos }: SingleTodoProps) => {
 
           <label htmlFor={"title" + todo?.id} className='w-full block cursor-pointer'>
 
-            <p className={`text-2xl ${todo.status == "completed" ? "line-through italic text-green-800" : ""}`}>{todo.title}</p>
-            <div className='text-gray-600 text-xl'>
+            <p className={`text-xl md:text-2xl ${todo.status == "completed" ? "line-through italic text-green-800" : ""}`}>{todo.title}</p>
+            <div className='text-gray-600 dark:text-gray-400  md:text-xl'>
               {todo.discrption}
             </div>
           </label>
         </div>
       </div>
 
-      <button className='bg-red-700 p-2 cursor-pointer text-3xl text-white rounded-lg'
+      <button className='bg-red-700 p-2 cursor-pointer text-3xl text-white rounded-lg mx-auto'
         onClick={() => deleteTodo(todo.id)}
         disabled={loading}
       >

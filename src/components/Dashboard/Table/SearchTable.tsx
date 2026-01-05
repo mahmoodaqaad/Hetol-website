@@ -5,12 +5,13 @@ import { FaSearch } from 'react-icons/fa'
 import { IoReload } from 'react-icons/io5'
 
 const SearchTable = ({ path }: { path: string }) => {
-    const params=useSearchParams()
-    const [search, setSearch] = useState(params.get("search")||"")
+    const params = useSearchParams()
+
+    const [search, setSearch] = useState(params.get("search") || "")
     const router = useRouter()
-    const handleSearch = async (e:React.FormEvent) => {
+    const handleSearch = async (e: React.FormEvent) => {
         try {
-e.preventDefault()
+            e.preventDefault()
             if (!search) {
                 setSearch("")
                 return router.push(`/dashboard/${path}?pageNumber=1}`)
@@ -38,8 +39,8 @@ e.preventDefault()
     }
     return (
 
-            <form action="">
-        <div className='flex gap-1 items-center'>
+        <form action="">
+            <div className='flex gap-1 items-center'>
 
                 <div className=' flex-1'>
                     <input type="text"
@@ -53,17 +54,17 @@ e.preventDefault()
                     onClick={handleSearch}
                     className='text-2xl bg-sky-500 text-white p-2 rounded hover:scale-110 transition-all'><FaSearch />
                 </button>
-            {
-                search &&
-                <div
-                onClick={handleNotSearch}
-                className='text-2xl bg-sky-500 text-white p-2 rounded hover:scale-110 transition-all'>
-                    <IoReload />
-                </div>
-            }
+                {
+                    search &&
+                    <div
+                        onClick={handleNotSearch}
+                        className='text-2xl bg-sky-500 text-white p-2 rounded hover:scale-110 transition-all'>
+                        <IoReload />
+                    </div>
+                }
 
-        </div>
-            </form>
+            </div>
+        </form>
     )
 }
 

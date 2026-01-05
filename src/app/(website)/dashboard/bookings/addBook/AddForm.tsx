@@ -1,13 +1,39 @@
 "use client"
+import { DOMAIN } from '@/utils/consant'
+import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 const AddForm = () => {
+
     const [userId, setUserId] = useState("")
     const [roomId, setRoomId] = useState("")
     const [checkIn, setCheckIn] = useState("")
     const [checkOut, setCheckOut] = useState("")
+
+    const [user, setUser] = useState<{ name: string, id: number }[]>([])
+
+    const [room, setRoom] = useState<{ name: string, id: number }[]>([])
+
+    useEffect(() => {
+        axios.get(`${DOMAIN}/api/users/name_id`).then((res) => {
+            setUser(res.data);
+
+        })
+        axios.get(`${DOMAIN}/api/rooms/name_id`).then((res) => {
+            setRoom(res.data);
+
+        })
+    }, [])
+
+    const userOption = user.map(user => (
+        <option value="" key={user.id}>{user.name}</option>
+    ))
+    const RoomOption = room.map(room => (
+        <option value="" key={room.id}>{room.name}</option>
+    ))
+
     const router = useRouter()
 
 
@@ -17,30 +43,32 @@ const AddForm = () => {
         if (!roomId) return toast.error("roomId is required");
         if (!checkIn) return toast.error("checkIn is required");
         if (!checkOut) return toast.error("checkOut is required");
- 
-        router.push(`/dashboard/bookings/addBook/payment?userId=${userId}&roomId=${roomId}&checkIn=${(checkIn)}&checkOut=${(checkOut) }`)
+
+        router.push(`/dashboard/bookings/addBook/payment?userId=${userId}&roomId=${roomId}&checkIn=${(checkIn)}&checkOut=${(checkOut)}`)
     }
     return (
         <form className='mt-3 border-t border-gray-300 text-center'>
             <div className='mt-6'>
 
-                <input
-                    type="number"
-                    placeholder='user Id... '
+                <select
                     className='px-2 py-3 w-full border-0 outline-0 dark:bg-gray-800'
-                    value={userId}
-                    onChange={e => setUserId(e.target.value)}
-                />
-            </div>
-            <div className='mt-7'>
+                    onChange={e => setUserId(e.target.value)}>
+                    <option value="" disabled selected>Select User</option>
 
-                <input
-                    type="number"
-                    placeholder='Room Id... '
+                    {userOption}
+                </select>
+
+            </div>
+            <div className='mt-6'>
+
+                <select
                     className='px-2 py-3 w-full border-0 outline-0 dark:bg-gray-800'
-                    value={roomId}
-                    onChange={e => setRoomId(e.target.value)}
-                />
+                    onChange={e => setRoomId(e.target.value)}>
+                    <option value="" disabled selected>Select Room</option>
+
+                    {RoomOption}
+                </select>
+
             </div>
 
 

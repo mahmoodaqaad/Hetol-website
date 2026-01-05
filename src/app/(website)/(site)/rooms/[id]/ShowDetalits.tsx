@@ -1,6 +1,7 @@
-import Booking_list from '@/components/WebSite/SinglePage/Booking-list/Booking-list'
-import MyGallery from '@/components/WebSite/SinglePage/Image_gallery/Image_gallery'
-import SavePage from '@/components/WebSite/SinglePage/SavePage/SavePage'
+
+import Booking_list from '@/components/WebSite/Rooms/SinglePage/Booking-list/Booking-list'
+import MyGallery from '@/components/WebSite/Rooms/SinglePage/Image_gallery/Image_gallery'
+import SavePage from '@/components/WebSite/Rooms/SinglePage/SavePage/SavePage'
 import Rating from '@/utils/Rating'
 import { RoomWithReltionAll } from '@/utils/Types'
 import { BookingRequest, Saved, User } from '@prisma/client'

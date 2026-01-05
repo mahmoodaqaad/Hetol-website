@@ -4,10 +4,10 @@ import Table from './Table'
 import { GetBooking, getBookingCount } from '@/apiCall/Booking'
 import { BookingWithRelations, SearchProps } from '@/utils/Types'
 
- 
-const BookingPage = async ({ searchParams: { pageNumber, search = "" } }: SearchProps) => {
 
-  const Booking: BookingWithRelations[] = await GetBooking(pageNumber, search)
+const BookingPage = async ({ searchParams }: SearchProps) => {
+  const { pageNumber, search = "", sort = "", order = "", filter = "" } = await searchParams
+  const Booking: BookingWithRelations[] = await GetBooking(pageNumber, search, sort, order, filter)
   const count: number = await getBookingCount()
 
   return (

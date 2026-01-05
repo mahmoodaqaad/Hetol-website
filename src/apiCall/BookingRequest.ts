@@ -2,9 +2,9 @@ import { DOMAIN } from "@/utils/consant";
 import { getFetchAll, getFetchById } from "@/utils/FetchData";
 import { notFound, redirect } from "next/navigation";
 
-export const GetRoomsRequest = async (pageNumber: string, search: string = "") => {
-
-    const response = await getFetchAll("booking-requests", pageNumber, search)
+export const GetRoomsRequest = async (pageNumber: string | number, search: string, sort: string, order: string, filter: string) => {
+    // const token = (await cookies()).get("jwt")?.value
+    const response = await getFetchAll("booking-requests", pageNumber, search, sort, order, filter)
 
     if (response.status === 403) redirect("/dashboard/403")
     if (!response?.ok) {

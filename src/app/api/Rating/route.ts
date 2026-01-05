@@ -32,7 +32,20 @@ export const POST = async (req: Request) => {
                 ratingValue: rating,
             },
         });
+        const writerComment = await prisma.user.findUnique({ where: { id: Number(userId) }, select: { name: true } })
+        const room = await prisma.room.findUnique({ where: { id: Number(roomId) }, select: { name: true } })
+        const users = await prisma.user.findMany({ where: { role: "SuperAdmin" }, select: { id: true } })
+        users.map(async (item) => {
 
+
+            await prisma.notification.create({
+                data: {
+                    message: `${writerComment?.name} Ratin for a room (${room?.name}) ${rating} ${+rating > 1 ? "stars" : "star"}`,
+                    userId: item.id,
+                    type: "booking-requesr"
+                }
+            })
+        })
         return NextResponse.json({ message: 'تم التقييم بنجاح', rating: newRating });
     } catch (error) {
         console.error(error);

@@ -1,8 +1,10 @@
 
 
-import SingleRoom from '@/components/WebSite/SingleRoom/SingleRoom'
+import Header from '@/components/WebSite/header/Header'
+import SearchRoom from '@/components/WebSite/Rooms/SearchRoom/SearchRoom'
+import SingleRoom from '@/components/WebSite/Rooms/SingleRoom/SingleRoom'
 import { DOMAIN } from '@/utils/consant'
-import { RoomWithReltion } from '@/utils/Types'
+import { RoomWithReltionAll } from '@/utils/Types'
 import React from 'react'
 interface FilterProps {
     searchParams: {
@@ -31,9 +33,8 @@ const RoomsFilter = async ({ searchParams: { guest, checkIn, checkOut, type } }:
         </div>
     )
     if (!response.ok) throw new Error("Error in fetch data filter")
-    const data: RoomWithReltion[] = await response.json()
+    const data: RoomWithReltionAll[] = await response.json()
 
-    console.log(data);
 
 
 
@@ -43,9 +44,11 @@ const RoomsFilter = async ({ searchParams: { guest, checkIn, checkOut, type } }:
 
     return (
         <div className='mt-28 h-screen'>
+            <Header />
             <div>
-                <h2 className='font-semibold p-3 text-4xl uppercase font-sans'>Room Filter</h2>
+                <h2 className='font-semibold p-3 text-4xl uppercase font-sans dark:text-white'>Room Filter</h2>
             </div>
+<SearchRoom/>
             <div className='flex  w-full  items-center flex-wrap'>
 
                 {data.map((item, i) => (

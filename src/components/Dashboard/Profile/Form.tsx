@@ -25,6 +25,8 @@ const Form = ({ userId, setTodos }: { userId: number, setTodos: React.Dispatch<R
 
             toast.success("Todo Added")
             setTodos((prev) => [res.data, ...prev])
+            setTitle("")
+            setDiscrption("")
             router.refresh()
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {

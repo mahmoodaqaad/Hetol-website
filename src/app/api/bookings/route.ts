@@ -1,3 +1,4 @@
+import { BookingState } from "@prisma/client";
 import { IsSuperAdminOrAdminOrManager } from "@/utils/CheckRole";
 import { ARTICLE_PER_PAGE } from "@/utils/consant";
 import prisma from "@/utils/db";
@@ -17,31 +18,26 @@ export const GET = async (req: NextRequest) => {
 
     const pageNumber = Number(req.nextUrl.searchParams.get("pageNumber")) > 0 ? req.nextUrl.searchParams.get("pageNumber") : 1
     const search = req.nextUrl.searchParams.get("search") || ""
+    const sort = req.nextUrl.searchParams.get("sort") || "createdAt"
+    const order = req.nextUrl.searchParams.get("order") === "asc" ? "asc" : "desc"
+    const filter = req.nextUrl.searchParams.get("filter") || ""
+
+    const whereClause: any = {
+      OR: [
+        { user: { name: { contains: search, mode: "insensitive" } } },
+        { room: { name: { contains: search, mode: "insensitive" } } },
+      ]
+    }
+    if (filter) {
+      whereClause.status = filter as BookingState
+    }
+
     if (search) {
       const booking = await prisma.booking.findMany({
-        where: {
-          OR: [
-            {
-              user: {
-                name: {
-
-                  contains: search,
-                  mode: "insensitive"
-                }
-              },
-            },
-            {
-              room: {
-                name: {
-
-                  contains: search,
-                  mode: "insensitive"
-                }
-              },
-            },
-
-          ]
+        orderBy: {
+          [sort]: order
         },
+        where: whereClause,
         select: {
 
           room: {
@@ -76,6 +72,10 @@ export const GET = async (req: NextRequest) => {
     const Booking = await prisma.booking.findMany({
       skip: ARTICLE_PER_PAGE * (Number(pageNumber) - 1),
       take: ARTICLE_PER_PAGE,
+      orderBy: {
+        [sort]: order
+      },
+      where: filter ? { status: filter as BookingState } : {},
       select: {
 
         room: {

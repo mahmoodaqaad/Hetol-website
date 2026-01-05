@@ -3,12 +3,16 @@ import { varfiyMyAccount } from '@/utils/verfiyToken'
 import Link from 'next/link'
 import React from 'react'
 import { BiUser } from 'react-icons/bi'
-import { IoMdNotifications } from 'react-icons/io'
 import Bar from './Bar'
 import ThemeMode from './ThemeMode'
+import { User } from '@prisma/client'
+import { socket } from '@/lib/socketClints'
+import NotifictionPage from '@/components/Notifiction/NotifictionPage'
 
 const TopBar = async () => {
-    const user = await varfiyMyAccount()
+    const user: User & { Notification: Notification[] } = await varfiyMyAccount()
+
+    socket.emit("addNewUser", user)
 
     return (
         <div className='  shadow-lg bg-gray-100 p-3 dark:bg-slate-950 '>
@@ -29,10 +33,7 @@ const TopBar = async () => {
                 <div className='flex items-center gap-4 justify-end sm:justify-start'>
                     <ThemeMode />
 
-                    <div className='text-3xl text-orange-600 cursor-pointer hover:scale-125 transition-all'>
-                        <IoMdNotifications />
-                        {/* <Notifiction user={user} /> */}
-                    </div>
+                    <NotifictionPage user={user} />
                     <Link href={"/dashboard/profile"} className='text-3xl text-green-900 cursor-pointer hover:scale-125 transition-all'>
                         <BiUser />
 

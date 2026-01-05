@@ -14,7 +14,7 @@ const TodoPage = async () => {
     <div className=''>
       <h2 className='text-4xl font-semibold'>My Todo</h2>
 
-      <div className='bg-gray-100 dark:bg-gray-800 p-6 mt-4'>
+      <div className='bg-gray-100 dark:bg-gray-800 p-4 mt-4'>
         <TodoForm userId={Number(user?.id)} todo={todo} />
       </div>
 

@@ -9,7 +9,8 @@ export const GET = async (req: NextRequest) => {
 
 
         const user = await prisma.user.findUnique({
-            where: { id: Number(Myuser?.id) }, include: {
+            where: { id: Number(Myuser?.id) },
+            include: {
                 Saved: {
                     include:
                     {

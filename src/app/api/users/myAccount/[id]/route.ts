@@ -18,7 +18,12 @@ export const GET = async (req: NextRequest, { params: { id } }: Props) => {
 
         const user = await prisma.user.findUnique({
             where: { id: Number(id) }, include: {
-                Notification: true,
+                Notification: {
+                    
+                    orderBy: {
+                        createdAt: "desc"
+                    }
+                },
                 Saved: {
                     include:
                     {

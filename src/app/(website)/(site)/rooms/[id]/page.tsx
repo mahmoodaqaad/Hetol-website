@@ -28,14 +28,15 @@ const page = async ({ params }: SingleArticlesPageProps) => {
         <>
             <Header />
 
-            <div className='vh-100 bg-gradient-to-r from-gray-400 via-gray-300 to-gray-50 bg-opacity-40 pt-28'>
-            <div className='p-4 md:p-8'>
-                <ShowDetalits room={room} user={user} />
+            <div className='vh-100 bg-gradient-to-r from-gray-400 via-gray-300 to-gray-50 dark:from-gray-950 dark:via-gray-700 dark:to-gray-500 dark:text-white bg-opacity-40 pt-28'>
+                <div className='p-4 md:p-8'>
+                    <ShowDetalits room={room} user={user} />
 
-                <CommentAndReting room={room} user={user} />
 
+                    <CommentAndReting room={room} user={user} />
+
+                </div>
             </div>
-        </div>
         </>
     )
 }

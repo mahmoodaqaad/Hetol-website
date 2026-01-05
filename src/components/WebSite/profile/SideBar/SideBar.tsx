@@ -58,8 +58,8 @@ const SideBar = () => {
                 <Link
 
                   href={href} key={i} className={`w-full justify-center md:justify-normal border-b-2 py-4 px-2 flex items-center gap-2 text-xl   
-                hover:bg-gray-200 transition-all
-                ${href === path && "bg-gray-200"
+                hover:bg-gray-200 dark:hover:bg-gray-500 transition-all
+                ${href === path && "bg-gray-200 dark:bg-gray-500"
                     }
                 `}>
                   <div className='scale-110 text-2xl px-1 md:px-0 '>

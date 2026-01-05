@@ -1,6 +1,6 @@
 import { getRoomsBySearch } from '@/apiCall/Rooms'
-import SearchRoom from '@/components/WebSite/SearchRoom/SearchRoom'
-import SingleRoom from '@/components/WebSite/SingleRoom/SingleRoom'
+import SearchRoom from '@/components/WebSite/Rooms/SearchRoom/SearchRoom'
+import SingleRoom from '@/components/WebSite/Rooms/SingleRoom/SingleRoom'
 import { RoomWithReltionAll } from '@/utils/Types'
 import React from 'react'
 

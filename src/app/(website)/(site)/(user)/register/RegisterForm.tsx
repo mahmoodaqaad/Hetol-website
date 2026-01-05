@@ -44,7 +44,7 @@ const RegisterForm = () => {
                     type="text"
                     name='name'
                     placeholder='Name... '
-                    className='px-2 py-3 w-full border-0 outline-0'
+                    className='px-2 py-3 w-full border-0 outline-0 dark:bg-gray-600 dark:text-gray-100'
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
@@ -55,7 +55,7 @@ const RegisterForm = () => {
                     type="email"
                     name='email'
                     placeholder='Email... '
-                    className='px-2 py-3 w-full border-0 outline-0'
+                    className='px-2 py-3 w-full border-0 outline-0 dark:bg-gray-600 dark:text-gray-100'
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
@@ -67,7 +67,7 @@ const RegisterForm = () => {
                     type="Password"
                     name='password'
                     placeholder='Password... '
-                    className='px-2 py-3 w-full border-0 outline-0'
+                    className='px-2 py-3 w-full border-0 outline-0 dark:bg-gray-600 dark:text-gray-100'
                     value={password}
                     onChange={e => setPassword(e.target.value)} />
             </div>

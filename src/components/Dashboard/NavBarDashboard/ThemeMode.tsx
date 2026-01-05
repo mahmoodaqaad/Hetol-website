@@ -13,22 +13,28 @@ const ThemeMode = () => {
     }
     const { setDarkMode, isDarkmode } = context
 
+    
+
     return (
-        <div className='text-3xl text-black  dark:text-white cursor-pointer hover:scale-125 transition-all'
-            onClick={() => {
-                document.documentElement.classList.toggle("dark")
-                setDarkMode(!isDarkmode)
+        <div className="">
 
-            }}
-        >
+            <div className='text-3xl text-black  dark:text-white cursor-pointer hover:scale-125 transition-all'
+                onClick={() => {
+                    document.documentElement.classList.toggle("dark")
+                    setDarkMode(!isDarkmode)
+
+                }}
+            >
 
 
-            {
-                isDarkmode ?
-                    < CiSun /> :
-                    <FaMoon />
-            }
+                {
+                    isDarkmode ?
+                        <FaMoon />
+                        :
+                        < CiSun />
+                }
 
+            </div>
         </div>
     )
 }

@@ -6,8 +6,9 @@ import Table from './Table'
 import { varfiyTokenForPage } from '@/utils/verfiyToken'
 import { SearchProps } from '@/utils/Types'
 
-const UserPage = async ({ searchParams: { pageNumber, search = "" } }: SearchProps) => {
-  const users: User[] = await getUser(pageNumber, search)
+const UserPage = async ({ searchParams }: SearchProps) => {
+  const { pageNumber, search = "", sort = "", order = "", filter = "" } = await searchParams
+  const users: User[] = await getUser(pageNumber, search, sort, order, filter)
   const count: number = await getUserCount()
   const SignUser = await varfiyTokenForPage() as User
 

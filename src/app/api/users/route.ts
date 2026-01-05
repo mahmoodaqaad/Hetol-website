@@ -17,23 +17,26 @@ export const GET = async (req: NextRequest) => {
         // }
         const pageNumber = Number(req.nextUrl.searchParams.get("pageNumber")) > 0 ? req.nextUrl.searchParams.get("pageNumber") : 1
         const search = req.nextUrl.searchParams.get("search") || ""
+        const sort = req.nextUrl.searchParams.get("sort") || "createdAt"
+        const order = req.nextUrl.searchParams.get("order") === "asc" ? "asc" : "desc"
+        const filter = req.nextUrl.searchParams.get("filter") || ""
+
+        const whereClause: any = {
+            OR: [
+                { name: { contains: search, mode: "insensitive" } },
+                { email: { contains: search, mode: "insensitive" } }
+            ]
+        }
+
+        if (filter) {
+            whereClause.role = filter
+        }
+
         if (search) {
             const users = await prisma.user.findMany({
-                where: {
-                    OR: [
-                        {
-                            name: {
-                                contains: search,
-                                mode: "insensitive"
-                            },
-                        }, {
-
-                            email: {
-                                contains: search,
-                                mode: "insensitive"
-                            }
-                        }
-                    ]
+                where: whereClause,
+                orderBy: {
+                    [sort]: order
                 },
                 // skip: ARTICLE_PER_PAGE * (Number(pageNumber) - 1),
                 // take: ARTICLE_PER_PAGE,
@@ -51,6 +54,10 @@ export const GET = async (req: NextRequest) => {
 
         }
         const users = await prisma.user.findMany({
+            where: filter ? { role: filter as Role } : {},
+            orderBy: {
+                [sort]: order
+            },
             skip: ARTICLE_PER_PAGE * (Number(pageNumber) - 1),
             take: ARTICLE_PER_PAGE,
             select: {

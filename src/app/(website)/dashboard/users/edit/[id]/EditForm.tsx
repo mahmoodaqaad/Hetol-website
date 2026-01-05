@@ -54,7 +54,7 @@ const EditForm = ({ user, ShowRole = true, redirect = true }: { user: User, Show
                     type="text"
                     name='name'
                     placeholder='Name... '
-                    className='px-2 py-3 w-full border-0 outline-0 dark:bg-gray-800'
+                    className='px-2 py-3 w-full border-0 outline-0 dark:bg-gray-700'
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
@@ -65,7 +65,7 @@ const EditForm = ({ user, ShowRole = true, redirect = true }: { user: User, Show
                     type="email"
                     name='email'
                     placeholder='Email... '
-                    className='px-2 py-3 w-full border-0 outline-0 dark:bg-gray-800'
+                    className='px-2 py-3 w-full border-0 outline-0 dark:bg-gray-700'
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
@@ -76,7 +76,7 @@ const EditForm = ({ user, ShowRole = true, redirect = true }: { user: User, Show
                 <div className='mt-7'>
 
                     <select
-                        className='px-2 py-3 w-full border-0 outline-0 dark:bg-gray-800'
+                        className='px-2 py-3 w-full border-0 outline-0 dark:bg-gray-700'
                         value={role}
                         onChange={e => setRole(e.target.value)} >
 

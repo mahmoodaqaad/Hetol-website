@@ -6,7 +6,7 @@ export const GetMyNotif = async () => {
 
     if (response.status === 403) redirect("/dashboard/403")
     if (!response?.ok) {
-        throw new Error("Failed to fetch booking")
+        throw new Error("Failed to fetch notfiction")
     }
 
     return response.json();

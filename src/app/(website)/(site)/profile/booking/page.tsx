@@ -1,4 +1,4 @@
-import SingleRoom from '@/components/WebSite/SingleRoom/SingleRoom'
+import SingleRoom from '@/components/WebSite/Rooms/SingleRoom/SingleRoom'
 import { RoomWithReltionAll } from '@/utils/Types'
 import { varfiyMyAccount } from '@/utils/verfiyToken'
 import { Booking, User } from '@prisma/client'
@@ -18,10 +18,10 @@ const page = async () => {
                 {
                     user.bookings.map((item, i) => (
                         <div key={i} className='w-full sm:w-1/2 xl:w-1/3 p-2 sm:p-4'>
-                            <div className='bg-gray-200 shadow-xl   rounded-lg '>
+                            <div className='bg-gray-200 dark:bg-gray-800 shadow-xl   rounded-lg '>
 
                                 <h1 className=' p-2 flex gap-3 items-center'>
-                                    <p>Ceck Out :</p>
+                                    <p>Check Out :</p>
                                     <p className='text-2xl font-semibold'>
 
                                         {new Date(item.checkOut).toDateString()}

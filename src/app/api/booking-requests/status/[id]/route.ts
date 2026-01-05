@@ -1,4 +1,4 @@
-import { getIO } from "@/lib/socket";
+import { socket } from "@/lib/socketClints";
 import { IsSuperAdminOrAdminOrManager } from "@/utils/CheckRole";
 import prisma from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server"
@@ -60,16 +60,26 @@ export const PUT = async (req: NextRequest, { params: { id } }: Props) => {
 
         const notif = await prisma.notification.create({
             data: {
-                message: "تم قبول طلب الجحز",
+                message: "Your request is approved",
                 userId: request.userId,
-                type: "booking-requesr"
-            }
-        })
+                type: "booking-request"
+            }, select: {
 
-        const io = getIO(); // ✅ صح
-        io.to(request.userId.toString()).emit("newNotification", notif);
-        
-        return NextResponse.json({ message: 'Booking confirmed successfully' }, { status: 200 });
+                id: true,
+                type: true,
+                message: true,
+                createdAt: true,
+                isRead: true,
+                userId: true
+            }
+        });
+
+
+
+
+        socket.emit("prov_request", notif)
+
+        return NextResponse.json({ message: 'Booking confirmed successfully:' }, { status: 200 });
 
     } catch (error) {
         console.log("*******************");
@@ -106,7 +116,17 @@ export const DELETE = async (req: NextRequest, { params: { id } }: Props) => {
                 status: "available"
             }
         })
-        return NextResponse.json({ message: 'Booking request deleted successfully' }, { status: 200 });
+        const notif = await prisma.notification.create({
+            data: {
+                message: "sorry, Your request is rejected ,contact Us for more details ",
+                userId: request.userId,
+                type: "booking-requesr",
+
+            }
+        })
+
+
+        return NextResponse.json({ message: 'Booking request deleted successfully', io: io ? "yes" : "no" }, { status: 200 });
 
     } catch (error) {
         console.log("*******************");

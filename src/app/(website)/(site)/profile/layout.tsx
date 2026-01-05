@@ -34,7 +34,7 @@ export default function RootLayout({
                 <Header />
                 <div className="">
 
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 dark:bg-gray-700 dark:text-white">
                         <div className="hidden md:block">
 
                             <SideBar />

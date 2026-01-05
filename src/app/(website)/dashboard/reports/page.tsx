@@ -5,8 +5,8 @@ import { getUser } from '@/apiCall/users'
 import React from 'react'
 import { FaBed, FaClipboardList, FaUsers } from 'react-icons/fa'
 import { MdOutlineEventAvailable } from 'react-icons/md'
-import TopChannel from '../../../../components/Dashboard/TopCannel/TopChannel'
-import Tables from '../../../../components/Dashboard/Report/Tables'
+import TopChannel from '@/components/Dashboard/TopCannel/TopChannel'
+import Tables from '@/components/Dashboard/Report/Tables'
 import { varfiyTokenForPage } from '@/utils/verfiyToken'
 import { BookingRequestWithRelations, BookingtWithRelations, RoomWithReltion } from '@/utils/Types'
 import { User } from '@prisma/client'
@@ -46,7 +46,7 @@ const page = async () => {
 
       <div className='flex flex-wrap items-center justify-between mt-4'>
         {data.map((item, index) => (
-          <Card icon={undefined} key={index} {...item} />
+          <Card key={index} {...item} />
         ))}
 
 

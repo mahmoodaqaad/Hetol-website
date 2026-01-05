@@ -204,10 +204,10 @@ model Saved {
 model Notification {
   id        Int      @id @default(autoincrement())
   message   String
-  type      String 
-  userId    Int 
+  type      String
+  userId    Int
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  link      String 
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

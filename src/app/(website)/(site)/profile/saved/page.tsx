@@ -1,4 +1,4 @@
-import SingleRoom from '@/components/WebSite/SingleRoom/SingleRoom'
+import SingleRoom from '@/components/WebSite/Rooms/SingleRoom/SingleRoom'
 import { UserWithAllRoom } from '@/utils/Types'
 import { varfiyMyAccount } from '@/utils/verfiyToken'
 import { User } from '@prisma/client'

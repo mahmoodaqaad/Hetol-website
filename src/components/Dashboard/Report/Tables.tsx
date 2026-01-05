@@ -1,10 +1,10 @@
 "use client"
 
 import { User } from '@prisma/client'
-import UsersTable from '../../../app/(website)/dashboard/users/Table'
-import RoomTable from '../../../app/(website)/dashboard/rooms/Table'
-import BookingTable from '../../../app/(website)/dashboard/bookings/Table'
-import BookingRequestTable from '../../../app/(website)/dashboard/booking-requests/Table'
+import UsersTable from '@/app/(website)/dashboard/users/Table'
+import RoomTable from '@/app/(website)/dashboard/rooms/Table'
+import BookingTable from '@/app/(website)/dashboard/bookings/Table'
+import BookingRequestTable from '@/app/(website)/dashboard/booking-requests/Table'
 import { BookingRequestWithRelations, BookingtWithRelations, RoomWithReltion } from '@/utils/Types'
 
 const Tables = ({
